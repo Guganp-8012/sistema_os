@@ -15,6 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('tipo');
             $table->float('valor');
+            $table->unsignedBigInteger('empresa_id')->nullable();;
+            $table->unsignedBigInteger('categoria_id')->nullable();;
+            $table->foreign('empresa_id')
+                ->references('id')
+                ->on('empresas')
+                ->onDelete('cascade');
+            $table->foreign('categoria_id')
+                ->references('id')
+                ->on('categorias')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

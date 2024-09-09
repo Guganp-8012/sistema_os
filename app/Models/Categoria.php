@@ -10,4 +10,9 @@ class Categoria extends Model
     use HasFactory;
 
     protected $fillable = ['tipo'];
+
+    public function servicos()
+    {
+        return $this->hasMany(Servico::class);
+    }
 }

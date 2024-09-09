@@ -8,6 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class OrdemServico extends Model
 {
     use HasFactory;
+    protected $fillable = ['cliente_id','empresa_id','servico_id','data_inicio','data_final','status'];
 
-    protected $fillable = ['cliente', 'servico', 'data_inicio', 'data_final', 'status'];
+    public function cliente()
+    {
+        return $this->belongsTo (cliente::class);
+    }
+
+    public function empresa()
+    {
+        return $this->belongsTo (empresa::class);
+    }
+    
+    public function servico()
+    {
+        return $this->belongsTo (servico::class);
+    }
 }

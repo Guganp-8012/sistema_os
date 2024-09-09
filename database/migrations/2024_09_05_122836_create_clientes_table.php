@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nome');
             $table->date('data_nascimento');
             $table->string('foto');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

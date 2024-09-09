@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('razao_social');
             $table->string('cnpj');
+            $table->longText('endereco');
+            $table->integer('telefone');
             $table->timestamps();
         });
     }

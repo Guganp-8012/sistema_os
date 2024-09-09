@@ -14,18 +14,15 @@ class ProdutoController extends Controller
     {
         $produtos = Produto::all();
 
-        return response()->json([
-            'status' => true,
-            'produtos' => $produtos
-        ]);
+        return view('produto.index', ['produtos' => $produtos]);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('produto.cadastrar');
     }
 
     /**
@@ -33,21 +30,31 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        $produto = Produto::create($request->all());
+        $request->validate([
+            'email' => 'required',
+            'telefone' => 'required',
+        ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => "Produto Criado com sucesso!",
-            'produto' => $produto
-        ], 200);
+        Produto::create($request->all());
+
+        return redirect()->route('produto.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Produto $produto)
+    public function show($id)
     {
-        //
+        $produto = Produto::find($id);
+
+        if (!$produto) {
+            return response()->json(['message' => 'Produto não encontrado'], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'produto' => $produto
+        ]);
     }
 
     /**
@@ -69,8 +76,14 @@ class ProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produto $produto)
+    public function destroy($id)
     {
-        //
+        $produto = Produto::find($id);
+        if (!$produto) {
+            return response()->json(["message" => "Produto não encontrado"], 404);
+        }
+
+        $produto->delete();
+        return response()->json(["message" => "Produto removido com sucesso"]);
     }
 }
