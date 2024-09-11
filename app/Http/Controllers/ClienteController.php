@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+    
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 
@@ -14,10 +14,7 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::all();
 
-        return response()->json([
-            'status' => true,
-            'clientes' => $clientes
-        ]);
+        return view('cliente.index', ['clientes' => $clientes]);
     }
 
     /**
@@ -25,7 +22,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('cliente.cadastrar');
     }
 
     /**
@@ -33,13 +30,16 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = Cliente::create($request->all());
+        $request->validate([
+            'nome' => 'required',
+            'data_nascimento' => 'required',
+            'foto' => 'required',
+            'status' => 'required',
+        ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => "cliente Criado com sucesso!",
-            'cliente' => $cliente
-        ], 200);
+        Cliente::create($request->all());
+
+        return redirect()->route('cliente.index');
     }
 
     /**
@@ -53,24 +53,32 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cliente $cliente)
+    public function edit($id)
     {
-        //
+        $cliente = Cliente::find($id);
+        return view('cliente.editar', ['cliente' => $cliente]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $id)
     {
-        //
+        $cliente = Cliente::find($id);
+        $cliente->update($request->all());
+
+        return redirect()->route('cliente.index')->with('success', 'Cliente atualizado com sucesso.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
-        //
+        $cliente = Cliente::find($id);
+        $cliente->delete();
+        return redirect()->route('cliente.index')->with('success', 'Cliente excluído com sucesso.');
+
     }
 }

@@ -3,37 +3,33 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Página de Contato</title>
+        <title>Página de Categoria</title>
     </head>
 
     <body>
-        <h2>Lista de Contatos</h2>
+        <h2>Lista de Categorias</h2>
 
         <table class="table">
             <thead>
                 <tr>
                 <th scope="col">ID</th>
-                <th scope="col">EMAIL</th>
-                <th scope="col">TELEFONE</th>
-                <th scope="col">FOTO</th>
+                <th scope="col">TIPO</th>
                 <th scope="col">OPÇÕES</th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach($contatos as $contato)
+                @foreach($categorias as $categoria)
                     <tr>
-                        <th scope="row">{{ $contato->id }}</th>
-                        <td>{{ $contato->email }}</td>
-                        <td>{{ $contato->telefone }}</td>
-                        <td>{{ $contato->foto }}</td>
+                        <th scope="row">{{ $categoria->id }}</th>
+                        <td>{{ $categoria->tipo }}</td>
                         <td>
                             <div class="btns_formulario">
-                                <a href="{{ route('contato.editar', $contato->id) }}">
+                                <a href="{{ route('categoria.editar', $categoria->id) }}">
                                     <span>Editar</span>
                                 </a>
 
-                                <form action="{{ route('contato.deletar', $contato->id) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('categoria.deletar', $categoria->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Excluir</button>

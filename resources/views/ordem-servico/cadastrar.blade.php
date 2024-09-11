@@ -8,14 +8,12 @@
     </head>
 
     <body>
-        <form action="{{ route('contato.salvar') }}" method="post">
+        <form action="{{ route('ordemServico.salvar') }}" method="post">
             @csrf
             <label for="">Email: </label>
             <input type="text" name="email" id="email">
-            <label for="">Telefone:</label>
+            <label for="">Telefone</label>
             <input type="text" name="telefone" id="telefone">
-            <label for="">Foto:</label>
-            <input type="file" name="foto" id="foto">
             <button type="submit">Salvar</button>
         </form>
     </body>

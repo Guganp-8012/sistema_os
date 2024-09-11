@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+    
 use App\Models\Contato;
 use Illuminate\Http\Request;
 
@@ -35,7 +35,15 @@ class ContatoController extends Controller
             'telefone' => 'required',
         ]);
 
-        Contato::create($request->all());
+        $foto_camimho = $request->file('foto')->store('fotos', 'public');
+
+        // Criar o cliente com o caminho da foto
+        $contato = Contato::create([
+            'email' => $request->email,
+            'telefone' => $request->telefone,
+            'foto' => $foto_camimho,
+        ]);
+
 
         return redirect()->route('contato.index');
     }
@@ -51,17 +59,22 @@ class ContatoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Contato $contato)
+    public function edit($id)
     {
-        //
+        $contato = Contato::find($id);
+        return view('contato.editar', ['contato' => $contato]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Contato $contato)
+    public function update(Request $request, $id)
     {
-        //
+        $contato = Contato::find($id);
+        $contato->update($request->all());
+
+        return redirect()->route('contato.index')->with('success', 'Contato atualizado com sucesso.');
+
     }
 
     /**
@@ -70,11 +83,8 @@ class ContatoController extends Controller
     public function destroy($id)
     {
         $contato = Contato::find($id);
-        if (!$contato) {
-            return redirect()->route('contato.deletar');
-        }
-
         $contato->delete();
-        return redirect()->route('contato.deletar');
+        return redirect()->route('contato.index')->with('success', 'Contato excluído com sucesso.');
+
     }
 }

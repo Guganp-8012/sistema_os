@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+    
 use App\Models\Servico;
 use Illuminate\Http\Request;
 
@@ -12,20 +12,17 @@ class ServicoController extends Controller
      */
     public function index()
     {
-        $servicos = Servico::all();
+        $empresas = Servico::all();
 
-        return response()->json([
-            'status' => true,
-            'servicos' => $servicos
-        ]);
+        return view('empresa.index', ['empresas' => $empresas]);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('empresa.cadastrar');
     }
 
     /**
@@ -33,19 +30,20 @@ class ServicoController extends Controller
      */
     public function store(Request $request)
     {
-        $servico = Servico::create($request->all());
+        $request->validate([
+            'tipo' => 'required',
+            'valor' => 'required',
+        ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => "servico Criado com sucesso!",
-            'servico' => $servico
-        ], 200);
+        Servico::create($request->all());
+
+        return redirect()->route('empresa.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Servico $servico)
+    public function show(Servico $empresa)
     {
         //
     }
@@ -53,24 +51,30 @@ class ServicoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Servico $servico)
+    public function edit($id)
     {
-        //
+        $empresa = Servico::find($id);
+        return view('empresa.editar', ['empresa' => $empresa]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Servico $servico)
+    public function update(Request $request, $id)
     {
-        //
+        $empresa = Servico::find($id);
+        $empresa->update($request->all());
+
+        return redirect()->route('empresa.index')->with('success', 'Servico atualizado com sucesso.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Servico $servico)
+    public function destroy($id)
     {
-        //
+        $empresa = Servico::find($id);
+        $empresa->delete();
+        return redirect()->route('empresa.index')->with('success', 'Servico excluído com sucesso.');
     }
 }

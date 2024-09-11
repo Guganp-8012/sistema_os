@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+    
 use App\Models\Produto;
 use Illuminate\Http\Request;
 
@@ -31,8 +31,9 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required',
-            'telefone' => 'required',
+            'nome' => 'required',
+            'valor' => 'required',
+            'descricao' => 'required',
         ]);
 
         Produto::create($request->all());
@@ -43,34 +44,29 @@ class ProdutoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Produto $produto)
     {
-        $produto = Produto::find($id);
-
-        if (!$produto) {
-            return response()->json(['message' => 'Produto não encontrado'], 404);
-        }
-
-        return response()->json([
-            'status' => true,
-            'produto' => $produto
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Produto $produto)
+    public function edit($id)
     {
-        //
+        $produto = Produto::find($id);
+        return view('produto.editar', ['produto' => $produto]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, $id)
     {
-        //
+        $produto = Produto::find($id);
+        $produto->update($request->all());
+
+        return redirect()->route('produto.index')->with('success', 'Produto atualizado com sucesso.');
     }
 
     /**
@@ -79,11 +75,7 @@ class ProdutoController extends Controller
     public function destroy($id)
     {
         $produto = Produto::find($id);
-        if (!$produto) {
-            return response()->json(["message" => "Produto não encontrado"], 404);
-        }
-
         $produto->delete();
-        return response()->json(["message" => "Produto removido com sucesso"]);
+        return redirect()->route('produto.index')->with('success', 'Produto excluído com sucesso.');
     }
 }

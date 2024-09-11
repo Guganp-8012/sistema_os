@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+    
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 
@@ -14,10 +14,7 @@ class CategoriaController extends Controller
     {
         $categorias = Categoria::all();
 
-        return response()->json([
-            'status' => true,
-            'categorias' => $categorias
-        ]);
+        return view('categoria.index', ['categorias' => $categorias]);
     }
 
     /**
@@ -25,7 +22,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('categoria.cadastrar');
     }
 
     /**
@@ -33,13 +30,13 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        $categoria = Categoria::create($request->all());
+        $request->validate([
+            'tipo' => 'required',
+        ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => "categoria Criado com sucesso!",
-            'categoria' => $categoria
-        ], 200);
+        Categoria::create($request->all());
+
+        return redirect()->route('categoria.index');
     }
 
     /**
@@ -53,24 +50,32 @@ class CategoriaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categoria $categoria)
+    public function edit($id)
     {
-        //
+        $categoria = Categoria::find($id);
+        return view('categoria.editar', ['categoria' => $categoria]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, $id)
     {
-        //
+        $categoria = Categoria::find($id);
+        $categoria->update($request->all());
+
+        return redirect()->route('categoria.index')->with('success', 'Categoria atualizado com sucesso.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        //
+        $categoria = Categoria::find($id);
+        $categoria->delete();
+        return redirect()->route('categoria.index')->with('success', 'Categoria excluído com sucesso.');
+
     }
 }

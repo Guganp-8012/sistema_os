@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+    
 use App\Models\Empresa;
 use Illuminate\Http\Request;
 
@@ -14,10 +14,7 @@ class EmpresaController extends Controller
     {
         $empresas = Empresa::all();
 
-        return response()->json([
-            'status' => true,
-            'empresas' => $empresas
-        ]);
+        return view('empresa.index', ['empresas' => $empresas]);
     }
 
     /**
@@ -25,7 +22,7 @@ class EmpresaController extends Controller
      */
     public function create()
     {
-        //
+        return view('empresa.cadastrar');
     }
 
     /**
@@ -33,13 +30,16 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
-        $empresa = Empresa::create($request->all());
+        $request->validate([
+            'razao_social' => 'required',
+            'cnpj' => 'required',
+            'endereco' => 'required',
+            'telefone' => 'required',
+        ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => "empresa Criado com sucesso!",
-            'empresa' => $empresa
-        ], 200);
+        Empresa::create($request->all());
+
+        return redirect()->route('empresa.index');
     }
 
     /**
@@ -53,24 +53,32 @@ class EmpresaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Empresa $empresa)
+    public function edit($id)
     {
-        //
+        $empresa = Empresa::find($id);
+        return view('empresa.editar', ['empresa' => $empresa]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Empresa $empresa)
+    public function update(Request $request, $id)
     {
-        //
+        $empresa = Empresa::find($id);
+        $empresa->update($request->all());
+
+        return redirect()->route('empresa.index')->with('success', 'Empresa atualizado com sucesso.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Empresa $empresa)
+    public function destroy($id)
     {
-        //
+        $empresa = Empresa::find($id);
+        $empresa->delete();
+        return redirect()->route('empresa.index')->with('success', 'Empresa excluído com sucesso.');
+
     }
 }

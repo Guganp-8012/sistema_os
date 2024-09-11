@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+    
 use App\Models\OrdemServico;
 use Illuminate\Http\Request;
 
@@ -12,12 +12,9 @@ class OrdemServicoController extends Controller
      */
     public function index()
     {
-        $ordemservicos = Ordemservico::all();
+        $ordemServicos = OrdemServico::all();
 
-        return response()->json([
-            'status' => true,
-            'ordemservicos' => $ordemservicos
-        ]);
+        return view('ordemServico.index', ['ordemServicos' => $ordemServicos]);
     }
 
     /**
@@ -25,7 +22,7 @@ class OrdemServicoController extends Controller
      */
     public function create()
     {
-        //
+        return view('ordemServico.cadastrar');
     }
 
     /**
@@ -33,13 +30,15 @@ class OrdemServicoController extends Controller
      */
     public function store(Request $request)
     {
-        $ordemservico = Ordemservico::create($request->all());
+        $request->validate([
+            'data_inicio' => 'required',
+            'data_final' => 'required',
+            'status' => 'required',
+        ]);
 
-        return response()->json([
-            'status' => true,
-            'message' => "ordemservico Criado com sucesso!",
-            'ordemservico' => $ordemservico
-        ], 200);
+        OrdemServico::create($request->all());
+
+        return redirect()->route('ordemServico.index');
     }
 
     /**
@@ -53,24 +52,30 @@ class OrdemServicoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OrdemServico $ordemServico)
+    public function edit($id)
     {
-        //
+        $ordemServico = OrdemServico::find($id);
+        return view('ordemServico.editar', ['ordemServico' => $ordemServico]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, OrdemServico $ordemServico)
+    public function update(Request $request, $id)
     {
-        //
+        $ordemServico = OrdemServico::find($id);
+        $ordemServico->update($request->all());
+
+        return redirect()->route('ordemServico.index')->with('success', 'Ordem de servico atualizado com sucesso.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OrdemServico $ordemServico)
+    public function destroy($id)
     {
-        //
+        $ordemServico = OrdemServico::find($id);
+        $ordemServico->delete();
+        return redirect()->route('ordemServico.index')->with('success', 'Ordem de servico excluído com sucesso.');
     }
 }
