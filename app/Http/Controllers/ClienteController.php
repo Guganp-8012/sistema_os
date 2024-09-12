@@ -31,13 +31,21 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome' => 'required',
-            'data_nascimento' => 'required',
-            'foto' => 'required',
-            'status' => 'required',
+            'nome' => 'required|string|max:255',
+            'data_nascimento' => 'required|date',
+            'foto' => 'nullable|file|mimes:jpg,png,jpeg|max:2048',
+            'status' => 'required|boolean',
         ]);
 
-        Cliente::create($request->all());
+        $foto_camimho = $request->file('foto')->store('fotos', 'public');
+
+        // Criar o cliente com o caminho da foto
+        $cliente = Cliente::create([
+            'nome' => $request->nome,
+            'data_nascimento' => $request->data_nascimento,
+            'foto' => $foto_camimho,
+            'status' => $request->status,
+        ]);
 
         return redirect()->route('cliente.index');
     }
@@ -65,10 +73,16 @@ class ClienteController extends Controller
     public function update(Request $request, $id)
     {
         $cliente = Cliente::find($id);
-        $cliente->update($request->all());
+        $foto_camimho = $request->file('foto')->store('fotos', 'public');
+
+        $cliente = Cliente::update([
+            'nome' => $request->nome,
+            'data_nascimento' => $request->data_nascimento,
+            'foto' => $foto_camimho,
+            'status' => $request->status,
+        ]);
 
         return redirect()->route('cliente.index')->with('success', 'Cliente atualizado com sucesso.');
-
     }
 
     /**
@@ -79,6 +93,5 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         $cliente->delete();
         return redirect()->route('cliente.index')->with('success', 'Cliente excluído com sucesso.');
-
     }
 }

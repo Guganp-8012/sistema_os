@@ -12,12 +12,19 @@
             @csrf
             <label for="">Nome: </label>
             <input type="text" name="nome" id="nome">
+
             <label for="">Data de Nascimento:</label>
-            <input type="text" name="data_nascimento" id="data_nascimento">
-            <label for="">Foto: </label>
-            <input type="text" name="foto" id="foto">
-            <label for="">Status: </label>
-            <input type="text" name="status" id="status">
+            <input type="date" name="data_nascimento" id="data_nascimento">
+
+            <label for="">Foto:</label>
+            <input type="file" name="foto" id="foto">
+
+            <label for="status">Status:</label>
+            <select name="status" id="status" required>
+                <option value="1">Ativo</option>
+                <option value="0">Inativo</option>
+            </select>
+
             <button type="submit">Salvar</button>
         </form>
     </body>

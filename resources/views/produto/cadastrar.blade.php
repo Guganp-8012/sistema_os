@@ -12,10 +12,13 @@
             @csrf
             <label for="">Nome: </label>
             <input type="text" name="nome" id="nome">
+            
             <label for="">Valor:</label>
             <input type="text" name="valor" id="valor">
+
             <label for="">Descrição:</label>
             <input type="text" name="descricao" id="descricao">
+
             <button type="submit">Salvar</button>
         </form>
     </body>

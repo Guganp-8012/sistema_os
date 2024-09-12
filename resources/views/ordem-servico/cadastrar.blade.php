@@ -12,8 +12,10 @@
             @csrf
             <label for="">Email: </label>
             <input type="text" name="email" id="email">
+            
             <label for="">Telefone</label>
             <input type="text" name="telefone" id="telefone">
+            
             <button type="submit">Salvar</button>
         </form>
     </body>

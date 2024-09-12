@@ -27,8 +27,17 @@
                         <th scope="row">{{ $cliente->id }}</th>
                         <td>{{ $cliente->nome }}</td>
                         <td>{{ $cliente->data_nascimento }}</td>
-                        <td>{{ $cliente->foto }}</td>
+                        
+                        <td>
+                            @if($contato->foto)
+                                <img src="{{ asset('storage/' . $contato->foto) }}" alt="foto" style="max-width: 100px; max-height: 100px;">
+                            @else
+                                Sem foto
+                            @endif
+                        </td>
+                        
                         <td>{{ $cliente->status }}</td>
+
                         <td>
                             <div class="btns_formulario">
                                 <a href="{{ route('cliente.editar', $cliente->id) }}">

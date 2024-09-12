@@ -12,8 +12,10 @@
             @csrf
             <label for="">Tipo: </label>
             <input type="text" name="tipo" id="tipo">
+
             <label for="">Valor</label>
             <input type="text" name="valor" id="valor">
+            
             <button type="submit">Salvar</button>
         </form>
     </body>
