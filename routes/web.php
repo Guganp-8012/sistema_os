@@ -1,13 +1,13 @@
 <?php
   
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\CategoriaController; #ok
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\ContatoController;
-use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\ContatoController; #ok
+use App\Http\Controllers\EmpresaController; #ok
 use App\Http\Controllers\OrdemServicoController;
-use App\Http\Controllers\ProdutoController;
-use App\Http\Controllers\ServicoController;
+use App\Http\Controllers\ProdutoController; #ok
+use App\Http\Controllers\ServicoController; #ok
 
 
 Route::get('/', function () {

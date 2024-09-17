@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
     
 use App\Models\OrdemServico;
+use App\Models\Servico;
+use App\Models\Empresa;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
 class OrdemServicoController extends Controller
@@ -12,9 +15,9 @@ class OrdemServicoController extends Controller
      */
     public function index()
     {
-        $ordemServicos = OrdemServico::all();
+        $ordemServicos = OrdemServico::with('servico', 'empresa', 'categoria')->get();
 
-        return view('ordemServico.index', ['ordemServicos' => $ordemServicos]);
+        return view('ordem-servico.index', ['ordemServicos' => $ordemServicos]);
     }
 
     /**
@@ -22,7 +25,11 @@ class OrdemServicoController extends Controller
      */
     public function create()
     {
-        return view('ordemServico.cadastrar');
+        $servicos = Servico::all();
+        $empresas = Empresa::all();
+        $clientes = Cliente::all();
+        
+        return view('ordem-servico.cadastrar', compact('servicos', 'empresas', 'clientes'));
     }
 
     /**
@@ -31,14 +38,17 @@ class OrdemServicoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'data_inicio' => 'required',
-            'data_final' => 'required',
-            'status' => 'required',
+            'cliente_id' => 'required|integer',
+            'empresa_id' => 'required|integer',
+            'servico_id' => 'required|integer',
+            'data_inicio' => 'required|date',
+            'data_final' => 'required|date',
+            'status' => 'required|boolean',
         ]);
 
         OrdemServico::create($request->all());
 
-        return redirect()->route('ordemServico.index');
+        return redirect()->route('ordem-servico.index');
     }
 
     /**
@@ -66,7 +76,7 @@ class OrdemServicoController extends Controller
         $ordemServico = OrdemServico::find($id);
         $ordemServico->update($request->all());
 
-        return redirect()->route('ordemServico.index')->with('success', 'Ordem de servico atualizado com sucesso.');
+        return redirect()->route('ordem-servico.index')->with('success', 'Ordem de servico atualizado com sucesso.');
     }
 
     /**
@@ -76,6 +86,6 @@ class OrdemServicoController extends Controller
     {
         $ordemServico = OrdemServico::find($id);
         $ordemServico->delete();
-        return redirect()->route('ordemServico.index')->with('success', 'Ordem de servico excluído com sucesso.');
+        return redirect()->route('ordem-servico.index')->with('success', 'Ordem de servico excluído com sucesso.');
     }
 }

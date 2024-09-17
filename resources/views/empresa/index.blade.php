@@ -25,7 +25,7 @@
                 @foreach($empresas as $empresa)
                     <tr>
                         <th scope="row">{{ $empresa->id }}</th>
-                        <td>{{ $empresa->razaoSocial }}</td>
+                        <td>{{ $empresa->razao_social }}</td>
                         <td>{{ $empresa->cnpj }}</td>
                         <td>{{ $empresa->endereco }}</td>
                         <td>{{ $empresa->telefone }}</td>

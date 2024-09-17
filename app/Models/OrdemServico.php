@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class OrdemServico extends Model
 {
     use HasFactory;
-    protected $fillable = ['cliente_id','empresa_id','servico_id','data_inicio','data_final','status'];
+    protected $fillable = ['cliente_id', 'empresa_id', 'servico_id', 'data_inicio', 'data_final', 'status'];
 
     public function cliente()
     {

@@ -3,18 +3,22 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Página de Contato</title>
+        <title>Página de Ordem de Serviço</title>
     </head>
 
     <body>
-        <h2>Lista de Contatos</h2>
+        <h2>Lista de Ordem de Serviço</h2>
 
         <table class="table">
             <thead>
                 <tr>
                 <th scope="col">ID</th>
-                <th scope="col">EMAIL</th>
-                <th scope="col">TELEFONE</th>
+                <th scope="col">DATA DE INÍCIO</th>
+                <th scope="col">DATA DE FINALIZAÇÃO</th>
+                <th scope="col">STATUS</th>
+                <th scope="col">EMPRESA</th>
+                <th scope="col">CLIENTE</th>
+                <th scope="col">SERVIÇO</th>
                 <th scope="col">OPÇÕES</th>
                 </tr>
             </thead>
@@ -23,15 +27,20 @@
                 @foreach($ordemServicos as $ordemServico)
                     <tr>
                         <th scope="row">{{ $ordemServico->id }}</th>
-                        <td>{{ $ordemServico->email }}</td>
-                        <td>{{ $ordemServico->telefone }}</td>
+                        <td>{{ $ordemServico->data_inicio }}</td>
+                        <td>{{ $ordemServico->data_final }}</td>
+                        <td>{{ $ordemServico->status }}</td>
+                        <td>{{ $ordemServico->empresa->razao_social }}</td>
+                        <td>{{ $ordemServico->cliente->nome }}</td>
+                        <td>{{ $ordemServico->servico->tipo }}</td>
+
                         <td>
                             <div class="btns_formulario">
-                                <a href="{{ route('ordemServico.editar', $ordemServico->id) }}">
+                                <a href="{{ route('ordem-servico.editar', $ordemServico->id) }}">
                                     <span>Editar</span>
                                 </a>
 
-                                <form action="{{ route('ordemServico.deletar', $ordemServico->id) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('ordem-servico.deletar', $ordemServico->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Excluir</button>

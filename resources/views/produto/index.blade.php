@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <h2>Lista de Contatos</h2>
+        <h2>Lista de Produtos</h2>
 
         <table class="table">
             <thead>

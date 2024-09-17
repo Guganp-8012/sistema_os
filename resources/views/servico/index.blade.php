@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <h2>Lista de Contatos</h2>
+        <h2>Lista de Serviços</h2>
 
         <table class="table">
             <thead>
@@ -15,6 +15,8 @@
                 <th scope="col">ID</th>
                 <th scope="col">TIPO</th>
                 <th scope="col">VALOR</th>
+                <th scope="col">EMPRESA</th>
+                <th scope="col">CATEGORIA</th>
                 <th scope="col">OPÇÕES</th>
                 </tr>
             </thead>
@@ -25,6 +27,9 @@
                         <th scope="row">{{ $servico->id }}</th>
                         <td>{{ $servico->tipo }}</td>
                         <td>{{ $servico->valor }}</td>
+                        <td>{{ $servico->empresa->razao_social }}</td>
+                        <td>{{ $servico->categoria->tipo }}</td>
+                       
                         <td>
                             <div class="btns_formulario">
                                 <a href="{{ route('servico.editar', $servico->id) }}">

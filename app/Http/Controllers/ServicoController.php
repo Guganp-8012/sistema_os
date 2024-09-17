@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-    
+
 use App\Models\Servico;
+use App\Models\Empresa;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class ServicoController extends Controller
@@ -12,9 +14,9 @@ class ServicoController extends Controller
      */
     public function index()
     {
-        $empresas = Servico::all();
+        $servicos = Servico::with('empresa', 'categoria')->get();
 
-        return view('empresa.index', ['empresas' => $empresas]);
+        return view('servico.index', ['servicos' => $servicos]);
     }
 
     /**
@@ -22,7 +24,10 @@ class ServicoController extends Controller
      */
     public function create()
     {
-        return view('empresa.cadastrar');
+        $empresas = Empresa::all();
+        $categorias = Categoria::all();
+        
+        return view('servico.cadastrar', compact('empresas', 'categorias'));
     }
 
     /**
@@ -31,19 +36,21 @@ class ServicoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tipo' => 'required',
-            'valor' => 'required',
+            'tipo' => 'required|string|max:255',
+            'valor' => 'required|numeric',
+            'empresa_id' => 'required|integer',
+            'categoria_id' => 'required|integer',
         ]);
 
         Servico::create($request->all());
 
-        return redirect()->route('empresa.index');
+        return redirect()->route('servico.cadastrar');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Servico $empresa)
+    public function show(Servico $servico)
     {
         //
     }
@@ -53,8 +60,8 @@ class ServicoController extends Controller
      */
     public function edit($id)
     {
-        $empresa = Servico::find($id);
-        return view('empresa.editar', ['empresa' => $empresa]);
+        $servico = Servico::find($id);
+        return view('servico.editar', ['servico' => $servico]);
     }
 
     /**
@@ -62,10 +69,10 @@ class ServicoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $empresa = Servico::find($id);
-        $empresa->update($request->all());
+        $servico = Servico::find($id);
+        $servico->update($request->all());
 
-        return redirect()->route('empresa.index')->with('success', 'Servico atualizado com sucesso.');
+        return redirect()->route('servico.index')->with('success', 'Servico atualizado com sucesso.');
     }
 
     /**
@@ -73,8 +80,8 @@ class ServicoController extends Controller
      */
     public function destroy($id)
     {
-        $empresa = Servico::find($id);
-        $empresa->delete();
-        return redirect()->route('empresa.index')->with('success', 'Servico excluído com sucesso.');
+        $servico = Servico::find($id);
+        $servico->delete();
+        return redirect()->route('servico.index')->with('success', 'Servico excluído com sucesso.');
     }
 }

@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <h2>Lista de Contatos</h2>
+        <h2>Lista de Clientes</h2>
 
         <table class="table">
             <thead>
@@ -30,7 +30,7 @@
                         
                         <td>
                             @if($contato->foto)
-                                <img src="{{ asset('storage/' . $contato->foto) }}" alt="foto" style="max-width: 100px; max-height: 100px;">
+                                <img src="{{ asset('storage/' . $cliente->foto) }}" alt="foto" style="max-width: 100px; max-height: 100px;">
                             @else
                                 Sem foto
                             @endif
@@ -53,6 +53,10 @@
                         </td>
                     </tr>
                 @endforeach
+
+                <a href="{{ route('cliente.cadastrar')}}">
+                    <button>Cadastrar</button>
+                </a>
             </tbody>
         </table>
     </body>

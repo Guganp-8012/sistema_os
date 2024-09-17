@@ -1,11 +1,23 @@
-<form action="{{ route('ordemServico.atualizar',$ordemServico->id) }}" method="post">
+<form action="{{ route('ordem-servico.atualizar', $ordemServico->id) }}" method="post">
     @csrf
     @method('PUT')
-    <label for="">Email: </label>
-    <input type="text" name="email" id="email" value="{{ $ordemServico->email }}">
+    <label for="">Data de Início:</label>
+    <input type="date" name="data_inicio" id="data_inicio" value="{{ $ordemServico->data_inicio }}">
 
-    <label for="">Telefone</label>
-    <input type="text" name="telefone" id="telefone" value="{{$ordemServico->telefone }}">
+    <label for="">Data de Finalização:</label>
+    <input type="date" name="data_final" id="data_final" value="{{ $ordemServico->data_final }}">
 
+    <label for="">Status:</label>
+    <input type="text" name="status" id="status" value="{{ $ordemServico->status }}">
+
+    <label for="">Empresa:</label>
+    <input type="text" name="empresa" id="empresa" value="{{ $ordemServico->empresa->razao_social }}">
+
+    <label for="">Cliente:</label>
+    <input type="text" name="cliente" id="cliente" value="{{ $ordemServico->cliente->nome }}">
+
+    <label for="">Serviço:</label>
+    <input type="text" name="servico" id="servico" value="{{ $ordemServico->servico->tipo }}">
+    
     <button type="submit">Salvar</button>
 </form>

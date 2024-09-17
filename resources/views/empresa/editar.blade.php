@@ -2,7 +2,7 @@
     @csrf
     @method('PUT')
     <label for="">Razão Social: </label>
-    <input type="text" name="razao_social" id="razao_social" value="{{ $empresa->razaoSocial }}">
+    <input type="text" name="razao_social" id="razao_social" value="{{ $empresa->razao_social }}">
 
     <label for="">CNPJ: </label>
     <input type="text" name="cnpj" id="cnpj" value="{{ $empresa->cnpj }}">
