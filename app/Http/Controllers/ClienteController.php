@@ -73,9 +73,10 @@ class ClienteController extends Controller
     public function update(Request $request, $id)
     {
         $cliente = Cliente::find($id);
+
         $foto_camimho = $request->file('foto')->store('fotos', 'public');
 
-        $cliente = Cliente::update([
+        $cliente->update([
             'nome' => $request->nome,
             'data_nascimento' => $request->data_nascimento,
             'foto' => $foto_camimho,

@@ -11,4 +11,8 @@
     <input type="text" name="descricao" id="descricao" value="{{$produto->descricao }}">
 
     <button type="submit">Salvar</button>
+    
+    <a href="{{ route('produto.index')}}">
+        <button>Voltar</button>
+    </a>
 </form>

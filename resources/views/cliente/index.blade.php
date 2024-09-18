@@ -29,7 +29,7 @@
                         <td>{{ $cliente->data_nascimento }}</td>
                         
                         <td>
-                            @if($contato->foto)
+                            @if($cliente->foto)
                                 <img src="{{ asset('storage/' . $cliente->foto) }}" alt="foto" style="max-width: 100px; max-height: 100px;">
                             @else
                                 Sem foto

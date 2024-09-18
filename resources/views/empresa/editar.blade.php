@@ -14,4 +14,8 @@
     <input type="text" name="telefone" id="telefone" value="{{ $empresa->telefone }}">
 
     <button type="submit">Salvar</button>
+    
+    <a href="{{ route('empresa.index')}}">
+        <button>Voltar</button>
+    </a>
 </form>

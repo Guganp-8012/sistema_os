@@ -15,5 +15,9 @@
             
             <button type="submit">Salvar</button>
         </form>
+        
+        <a href="{{ route('categoria.index')}}">
+            <button>Voltar</button>
+        </a>
     </body>
 </html>

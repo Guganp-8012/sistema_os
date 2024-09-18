@@ -42,6 +42,10 @@
                         </td>
                     </tr>
                 @endforeach
+                
+                <a href="{{ route('produto.cadastrar')}}">
+                    <button>Cadastrar</button>
+                </a>
             </tbody>
         </table>
     </body>

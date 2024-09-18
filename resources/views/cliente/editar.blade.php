@@ -1,6 +1,6 @@
 <h1>Editar Cliente</h1>
 
-<form action="{{ route('cliente.atualizar', $cliente->id) }}" method="post">
+<form action="{{ route('cliente.atualizar', $cliente->id) }}" method="post" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <label for="">Nome: </label>
@@ -14,7 +14,14 @@
     <img src="{{ asset('storage/' . $cliente->foto) }}" alt="" width="100" height="100">
 
     <label for="">Status</label>
-    <input type="text" name="status" id="status" value="{{ $cliente->status }}">
+    <select name="status" id="status" required>
+        <option value="1" {{ $cliente->status == 1 ? 'selected':'' }}>Ativo</option>
+        <option value="0" {{ $cliente->status == 0 ? 'selected':'' }}>Inativo</option>
+    </select>
 
     <button type="submit">Salvar</button>
+    
+    <a href="{{ route('cliente.index')}}">
+        <button>Voltar</button>
+    </a>
 </form>

@@ -5,4 +5,8 @@
     <input type="text" name="tipo" id="tipo" value="{{ $categoria->tipo }}">
     
     <button type="submit">Salvar</button>
+
+    <a href="{{ route('categoria.index')}}">
+        <button>Voltar</button>
+    </a>
 </form>

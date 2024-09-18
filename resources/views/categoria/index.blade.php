@@ -38,6 +38,10 @@
                         </td>
                     </tr>
                 @endforeach
+                
+                <a href="{{ route('categoria.cadastrar')}}">
+                    <button>Cadastrar</button>
+                </a>
             </tbody>
         </table>
     </body>

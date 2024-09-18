@@ -13,5 +13,10 @@
     <input type="file" name="foto" id="foto" >
 
     <img src="{{ asset('storage/' . $contato->foto) }}" alt="" width="100" height="100">
+
     <button type="submit">Salvar</button>
+    
+    <a href="{{ route('contato.index')}}">
+        <button>Voltar</button>
+    </a>
 </form>

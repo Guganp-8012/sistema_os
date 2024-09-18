@@ -22,21 +22,21 @@
                 <option value="0">Concluído</option>
             </select>
 
-            <label for="empresa_id">Empresa:</label>
+            <label for="">Empresa:</label>
             <select name="empresa_id" id="empresa_id">
                 @foreach($empresas as $empresa)
                     <option value="{{ $empresa->id }}">{{ $empresa->razao_social }}</option>
                 @endforeach
             </select>
 
-            <label for="cliente_id">Cliente:</label>
+            <label for="">Cliente:</label>
             <select name="cliente_id" id="cliente_id">
                 @foreach($clientes as $cliente)
                     <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
                 @endforeach
             </select>
 
-            <label for="servico_id">Servico:</label>
+            <label for="">Servico:</label>
             <select name="servico_id" id="servico_id">
                 @foreach($servicos as $servico)
                     <option value="{{ $servico->id }}">{{ $servico->tipo }}</option>
@@ -45,5 +45,9 @@
             
             <button type="submit">Salvar</button>
         </form>
+        
+        <a href="{{ route('ordem-servico.index')}}">
+            <button>Voltar</button>
+        </a>
     </body>
 </html>

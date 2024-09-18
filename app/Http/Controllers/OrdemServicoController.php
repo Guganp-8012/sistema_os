@@ -15,7 +15,7 @@ class OrdemServicoController extends Controller
      */
     public function index()
     {
-        $ordemServicos = OrdemServico::with('servico', 'empresa', 'categoria')->get();
+        $ordemServicos = OrdemServico::with('servico', 'empresa', 'cliente')->get();
 
         return view('ordem-servico.index', ['ordemServicos' => $ordemServicos]);
     }
@@ -65,7 +65,7 @@ class OrdemServicoController extends Controller
     public function edit($id)
     {
         $ordemServico = OrdemServico::find($id);
-        return view('ordemServico.editar', ['ordemServico' => $ordemServico]);
+        return view('ordem-servico.editar', ['ordemServico' => $ordemServico]);
     }
 
     /**

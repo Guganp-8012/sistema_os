@@ -8,9 +8,9 @@
     </head>
 
     <body>
-        <form action="{{ route('cliente.salvar') }}" method="post">
+        <form action="{{ route('cliente.salvar') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <label for="">Nome: </label>
+            <label for="">Nome:</label>
             <input type="text" name="nome" id="nome">
 
             <label for="">Data de Nascimento:</label>
@@ -27,5 +27,9 @@
 
             <button type="submit">Salvar</button>
         </form>
+        
+        <a href="{{ route('cliente.index')}}">
+            <button>Voltar</button>
+        </a>
     </body>
 </html>

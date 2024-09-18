@@ -24,5 +24,9 @@
 
             <button type="submit">Salvar</button>
         </form>
+        
+        <a href="{{ route('empresa.index')}}">
+            <button>Voltar</button>
+        </a>
     </body>
 </html>

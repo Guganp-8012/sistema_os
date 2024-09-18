@@ -21,5 +21,9 @@
             
             <button type="submit">Salvar</button>
         </form>
+        
+        <a href="{{ route('contato.index')}}">
+            <button>Voltar</button>
+        </a>
     </body>
 </html>
