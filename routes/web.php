@@ -53,6 +53,7 @@ Route::post('/cliente', [ClienteController::class, 'store'])->name('cliente.salv
 Route::delete('/cliente/{id}', [ClienteController::class, 'destroy'])->name('cliente.deletar');
 Route::put('/cliente/{id}', [ClienteController::class, 'update'])->name('cliente.atualizar');
 Route::get('/cliente/{id}', [ClienteController::class, 'show'])->name('cliente.show');
+Route::post('/cliente/{id}', [ClienteController::class, 'atualizarStatus'])->name('cliente.atualizarStatus');
 
 
 Route::get('/contato', [ContatoController::class, 'index'])->name('contato.index');
@@ -62,6 +63,7 @@ Route::post('/contato', [ContatoController::class, 'store'])->name('contato.salv
 Route::delete('/contato/{id}', [ContatoController::class, 'destroy'])->name('contato.deletar');
 Route::put('/contato/{id}', [ContatoController::class, 'update'])->name('contato.atualizar');
 Route::get('/contato/{id}', [ContatoController::class, 'show'])->name('contato.show');
+Route::post('/contato/{id}', [ContatoController::class, 'atualizarStatus'])->name('contato.atualizarStatus');
 
 
 Route::get('/servico', [ServicoController::class, 'index'])->name('servico.index');
@@ -80,3 +82,4 @@ Route::post('/ordem-servico', [OrdemServicoController::class, 'store'])->name('o
 Route::delete('/ordem-servico/{id}', [OrdemServicoController::class, 'destroy'])->name('ordem-servico.deletar');
 Route::put('/ordem-servico/{id}', [OrdemServicoController::class, 'update'])->name('ordem-servico.atualizar');
 Route::get('/ordem-servico/{id}', [OrdemServicoController::class, 'show'])->name('ordem-servico.show');
+Route::post('/ordem-servico/{id}', [OrdemServicoController::class, 'atualizarStatus'])->name('ordem-servico.atualizarStatus');

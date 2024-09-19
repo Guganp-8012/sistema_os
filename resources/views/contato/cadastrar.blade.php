@@ -10,7 +10,7 @@
     <body>
         <form action="{{ route('contato.salvar') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <label for="">Email: </label>
+            <label for="">Email:</label>
             <input type="text" name="email" id="email">
 
             <label for="">Telefone:</label>
@@ -18,7 +18,13 @@
 
             <label for="">Foto:</label>
             <input type="file" name="foto" id="foto">
-            
+
+            <label for="status">Status:</label>
+            <select name="status" id="status" required>
+                <option value="1">Ativo</option>
+                <option value="0">Inativo</option>
+            </select>
+
             <button type="submit">Salvar</button>
         </form>
         

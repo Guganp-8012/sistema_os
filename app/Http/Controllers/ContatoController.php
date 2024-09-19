@@ -33,16 +33,18 @@ class ContatoController extends Controller
         $request->validate([
             'email' => 'required|email',
             'telefone' => 'required',
-            'foto' => 'nullable|file|mimes:jpg,png,jpeg|max:2048'
+            'foto' => 'nullable|file|mimes:jpg,png,jpeg|max:2048',
+            'status' => 'required|boolean',
         ]);
 
         $foto_camimho = $request->file('foto')->store('fotos', 'public');
 
-        // Criar o cliente com o caminho da foto
+        // Criar o contato com o caminho da foto
         $contato = Contato::create([
             'email' => $request->email,
             'telefone' => $request->telefone,
             'foto' => $foto_camimho,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('contato.index');
@@ -78,6 +80,7 @@ class ContatoController extends Controller
             'email' => $request->email,
             'telefone' => $request->telefone,
             'foto' => $foto_camimho,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('contato.index')->with('success', 'Contato atualizado com sucesso.');
@@ -91,5 +94,13 @@ class ContatoController extends Controller
         $contato = Contato::find($id);
         $contato->delete();
         return redirect()->route('contato.index')->with('success', 'Contato excluído com sucesso.');
+    }
+    
+    public function atualizarStatus(Request $request, $id){
+        $contato = Contato::find($id);
+        $contato->status = true;
+        $contato->save();
+
+        return redirect()->route('contato.index');
     }
 }

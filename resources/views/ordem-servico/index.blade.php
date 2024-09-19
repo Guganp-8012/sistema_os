@@ -29,7 +29,15 @@
                         <th scope="row">{{ $ordemServico->id }}</th>
                         <td>{{ $ordemServico->data_inicio }}</td>
                         <td>{{ $ordemServico->data_final }}</td>
-                        <td>{{ $ordemServico->status }}</td>
+
+                        <td>
+                            @if ($ordemServico->status == 1)
+                                Em andamento
+                            @else
+                                Concluído
+                            @endif
+                        </td>
+
                         <td>{{ $ordemServico->empresa->razao_social }}</td>
                         <td>{{ $ordemServico->cliente->nome }}</td>
                         <td>{{ $ordemServico->servico->tipo }}</td>
@@ -44,6 +52,12 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Excluir</button>
+                                </form>
+                                
+                                <form action="{{ route('ordem-servico.atualizarStatus', $ordemServico->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('POST')
+                                    <button type="submit">Concluir</button>
                                 </form>
                             </div>
                         </td>

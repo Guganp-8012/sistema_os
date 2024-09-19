@@ -27,7 +27,7 @@
                         <th scope="row">{{ $cliente->id }}</th>
                         <td>{{ $cliente->nome }}</td>
                         <td>{{ $cliente->data_nascimento }}</td>
-                        
+
                         <td>
                             @if($cliente->foto)
                                 <img src="{{ asset('storage/' . $cliente->foto) }}" alt="foto" style="max-width: 100px; max-height: 100px;">
@@ -35,8 +35,14 @@
                                 Sem foto
                             @endif
                         </td>
-                        
-                        <td>{{ $cliente->status }}</td>
+
+                        <td>
+                            @if ($cliente->status == 1)
+                                Ativo
+                            @else
+                                Inativo
+                            @endif
+                        </td>
 
                         <td>
                             <div class="btns_formulario">
@@ -48,6 +54,12 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Excluir</button>
+                                </form>
+
+                                <form action="{{ route('cliente.atualizarStatus', $cliente->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('POST')
+                                    <button type="submit">Ativar</button>
                                 </form>
                             </div>
                         </td>
