@@ -1,35 +1,31 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Cadastrar Contato</title>
-    </head>
+@extends('layouts.app')
 
-    <body>
-        <form action="{{ route('contato.salvar') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <label for="">Email:</label>
-            <input type="text" name="email" id="email">
+@section('title', 'Cadastrar Contato')
 
-            <label for="">Telefone:</label>
-            <input type="text" name="telefone" id="telefone">
+@section('content')
+    <h2>Cadastrar Contato</h2>
 
-            <label for="">Foto:</label>
-            <input type="file" name="foto" id="foto">
+    <form action="{{ route('contato.salvar') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email" required>
 
-            <label for="status">Status:</label>
-            <select name="status" id="status" required>
-                <option value="1">Ativo</option>
-                <option value="0">Inativo</option>
-            </select>
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone" id="telefone" required>
 
-            <button type="submit">Salvar</button>
-        </form>
-        
-        <a href="{{ route('contato.index')}}">
-            <button>Voltar</button>
-        </a>
-    </body>
-</html>
+        <label for="foto">Foto:</label>
+        <input type="file" name="foto" id="foto" accept="image/*">
+
+        <label for="status">Status:</label>
+        <select name="status" id="status" required>
+            <option value="1">Ativo</option>
+            <option value="0">Inativo</option>
+        </select>
+
+        <button type="submit">Salvar</button>
+    </form>
+    
+    <a href="{{ route('contato.index') }}">
+        <button type="button">Voltar</button>
+    </a>
+@endsection

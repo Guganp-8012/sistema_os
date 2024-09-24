@@ -1,29 +1,26 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Cadastrar Produto</title>
-    </head>
+@extends('layouts.app')
 
-    <body>
-        <form action="{{ route('produto.salvar') }}" method="post">
-            @csrf
-            <label for="">Nome: </label>
-            <input type="text" name="nome" id="nome">
-            
-            <label for="">Valor:</label>
-            <input type="text" name="valor" id="valor">
+@section('title', 'Cadastrar Produto')
 
-            <label for="">Descrição:</label>
-            <input type="text" name="descricao" id="descricao">
+@section('content')
+    <h1>Cadastrar Produto</h1>
 
-            <button type="submit">Salvar</button>
-        </form>
+    <form action="{{ route('produto.salvar') }}" method="post">
+        @csrf
 
-        <a href="{{ route('produto.index')}}">
-            <button>Voltar</button>
-        </a>
-    </body>
-</html>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" required>
+
+        <label for="valor">Valor:</label>
+        <input type="text" name="valor" id="valor" required>
+
+        <label for="descricao">Descrição:</label>
+        <input type="text" name="descricao" id="descricao" required>
+
+        <button type="submit">Salvar</button>
+    </form>
+
+    <a href="{{ route('produto.index') }}">
+        <button type="button">Voltar</button>
+    </a>
+@endsection

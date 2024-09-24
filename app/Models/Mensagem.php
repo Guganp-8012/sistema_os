@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contato extends Model
+class Mensagem extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['telefone', 'email', 'foto', 'status'];
 }

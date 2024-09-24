@@ -8,6 +8,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\OrdemServicoController;
+use App\Http\Controllers\MensagemController;
 
 
 Route::get('/', function () {
@@ -83,3 +84,5 @@ Route::delete('/ordem-servico/{id}', [OrdemServicoController::class, 'destroy'])
 Route::put('/ordem-servico/{id}', [OrdemServicoController::class, 'update'])->name('ordem-servico.atualizar');
 Route::get('/ordem-servico/{id}', [OrdemServicoController::class, 'show'])->name('ordem-servico.show');
 Route::post('/ordem-servico/{id}', [OrdemServicoController::class, 'atualizarStatus'])->name('ordem-servico.atualizarStatus');
+
+Route::get('/mensagem', [MensagemController::class, 'index'])->name('mensagem.index');
