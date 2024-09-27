@@ -1,8 +1,38 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
 @section('title', 'Lista de Serviços')
 
 @section('content')
+    <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('cliente.index') }}" role="tab" aria-selected="false">Cliente</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('contato.index') }}" role="tab" aria-selected="false">Contato</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('produto.index') }}" role="tab" aria-selected="false">Produto</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('categoria.index') }}" role="tab" aria-selected="false">Categoria</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('empresa.index') }}" role="tab" aria-selected="false">Empresa</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link active" href="{{ route('servico.index') }}" role="tab" aria-selected="true">Serviço</a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('ordem-servico.index') }}" role="tab" aria-selected="false">Ordem de Serviço</a>
+        </li>
+    </ul>
+
     <h2>Lista de Serviços</h2>
 
     <table class="table">
@@ -28,13 +58,23 @@
                     <td>
                         <div class="btns_formulario">
                             <a href="{{ route('servico.editar', $servico->id) }}">
-                                <span>Editar</span>
+                                <button type="button" style="border: none; background: none;">
+                                    <img src="https://img.icons8.com/?size=100&id=12082&format=png&color=000000"
+                                    height="35" width="35"
+                                    data-bs-toggle='tooltip'
+                                    title="Editar Serviço">
+                                </button>
                             </a>
 
                             <form action="{{ route('servico.deletar', $servico->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit">Excluir</button>
+                                <button type="submit" style="border: none; background: none;">
+                                    <img src="https://img.icons8.com/?size=100&id=68064&format=png&color=000000"
+                                    height="35" width="35"
+                                    data-bs-toggle='tooltip'
+                                    title="Excluir Serviço">
+                                </button>
                             </form>
                         </div>
                     </td>
@@ -42,9 +82,13 @@
             @endforeach
             
             <tr>
-                <td colspan="6" style="text-align: right;">
+                <td style="text-align: right;">
                     <a href="{{ route('servico.cadastrar') }}">
-                        <button>Cadastrar</button>
+                        <button class="btn btn-secondary">Cadastrar</button>
+                    </a>
+                    
+                    <a href="{{ url()->previous() }}">
+                        <button class="btn btn-secondary">Voltar</button>
                     </a>
                 </td>
             </tr>
